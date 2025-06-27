@@ -1,6 +1,8 @@
 # Nuon AWS Empty Sandbox
 This is a baseline sandbox that provides a bare minimum AWS environment for use with Nuon.
 
+It includes outputs required for Nuon to function.
+
 == Requirements
 
 [cols="a,a",options="header,autowidth"]
