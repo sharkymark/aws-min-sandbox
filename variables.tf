@@ -76,6 +76,10 @@ variable "additional_tags" {
   default     = {}
 }
 
+variable "region" {
+  type        = string
+  description = "The region to launch the cluster in."
+}
 
 variable "tags" {
   type        = map(any)
