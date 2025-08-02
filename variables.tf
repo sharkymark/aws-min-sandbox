@@ -26,6 +26,15 @@ locals {
   }
 }
 
+#
+# from cloudformation
+#
+
+variable "vpc_id" {
+  type        = string
+  description = "The ID of the AWS VPC to provision the sandbox in."
+}
+
 variable "maintenance_iam_role_arn" {
   type        = string
   description = "The provision IAM Role ARN"
@@ -41,6 +50,50 @@ variable "deprovision_iam_role_arn" {
   description = "The deprovision IAM Role ARN"
 }
 
+# kyverno policies
+variable "kyverno_policy_dir" {
+  type        = string
+  description = "Path to a directory with kyverno policy manifests."
+  default     = "./kyverno-policies"
+}
+
+variable "additional_tags" {
+  type        = map(any)
+  description = "Extra tags to append to the default tags that will be added to install resources."
+  default     = {}
+}
+
+variable "prefix_override" {
+  type        = string
+  description = "The resource prefix to override, otherwise defaults to the nuon install id"
+  default     = ""
+}
+
+#
+# toggle-able components
+#
+
+variable "enable_nuon_dns" {
+  type        = string
+  default     = "false"
+  description = "Whether or not the app should use a nuon-provided nuon.run domain. Controls the cert-manager-issuer and the route_53_zone."
+} 
+
+#
+# set by nuon
+#
+
+# Automatically set by Nuon when provisioned.
+variable "nuon_id" {
+  type        = string
+  description = "The nuon id for this install. Used for naming purposes."
+}
+
+variable "region" {
+  type        = string
+  description = "The region to launch the cluster in."
+}
+
 variable "public_root_domain" {
   type        = string
   description = "The public root domain."
@@ -49,36 +102,6 @@ variable "public_root_domain" {
 variable "internal_root_domain" {
   type        = string
   description = "The internal root domain."
-}
-
-variable "enable_nuon_dns" {
-  type        = string
-  default     = "false"
-  description = "Whether or not the cluster should use a nuon-provided nuon.run domain."
-} 
-
-variable "prefix_override" {
-  type        = string
-  description = "The resource prefix to override, otherwise defaults to the nuon install id"
-  default     = ""
-}
-
-# Automatically set by Nuon when provisioned.
-variable "nuon_id" {
-  type        = string
-  description = "The nuon id for this install. Used for naming purposes."
-}
-
-
-variable "additional_tags" {
-  type        = map(any)
-  description = "Extra tags to append to the default tags that will be added to install resources."
-  default     = {}
-}
-
-variable "region" {
-  type        = string
-  description = "The region to launch the cluster in."
 }
 
 variable "tags" {
