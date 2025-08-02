@@ -48,30 +48,6 @@ output "nuon_dns" {
     enabled         = local.nuon_dns.enabled,
     public_domain   = local.nuon_dns.enabled ? module.nuon_dns[0].public_domain : { zone_id : "", name : "", nameservers : tolist([""]) }
     internal_domain = local.nuon_dns.enabled ? module.nuon_dns[0].internal_domain : { zone_id : "", name : "", nameservers : tolist([""]) }
-    alb_ingress_controller = {
-      enabled  = local.nuon_dns.enabled
-      id       = local.nuon_dns.enabled ? module.nuon_dns[0].alb_ingress_controller.release.id : ""
-      chart    = local.nuon_dns.enabled ? module.nuon_dns[0].alb_ingress_controller.release.chart : ""
-      revision = local.nuon_dns.enabled ? module.nuon_dns[0].alb_ingress_controller.release.revision : ""
-    }
-    external_dns = {
-      enabled  = local.nuon_dns.enabled
-      id       = local.nuon_dns.enabled ? module.nuon_dns[0].external_dns.release.id : ""
-      chart    = local.nuon_dns.enabled ? module.nuon_dns[0].external_dns.release.chart : ""
-      revision = local.nuon_dns.enabled ? module.nuon_dns[0].external_dns.release.revision : ""
-    }
-    cert_manager = {
-      enabled  = local.nuon_dns.enabled
-      id       = local.nuon_dns.enabled ? module.nuon_dns[0].cert_manager.release.id : ""
-      chart    = local.nuon_dns.enabled ? module.nuon_dns[0].cert_manager.release.chart : ""
-      revision = local.nuon_dns.enabled ? module.nuon_dns[0].cert_manager.release.revision : ""
-    }
-    ingress_nginx = {
-      enabled  = local.nuon_dns.enabled
-      id       = local.nuon_dns.enabled ? module.nuon_dns[0].ingress_nginx.release.id : ""
-      chart    = local.nuon_dns.enabled ? module.nuon_dns[0].ingress_nginx.release.chart : ""
-      revision = local.nuon_dns.enabled ? module.nuon_dns[0].ingress_nginx.release.revision : ""
-    }
   }
-  description = "A map of Nuon DNS attributes: whether nuon.run has been enabled; AWS Route 53 details for the public_domain and internal_domain; metadata bout the helm charts the module installs on."
+  description = "A map of Nuon DNS attributes: whether nuon.run has been enabled; AWS Route 53 details for the public_domain and internal_domain."
 }
