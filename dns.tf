@@ -3,7 +3,7 @@ resource "aws_route53_zone" "internal" {
   force_destroy = true
 
   vpc {
-    vpc_id = module.vpc.vpc_id
+    vpc_id = var.vpc_id
   }
 }
 
