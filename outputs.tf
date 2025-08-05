@@ -45,9 +45,21 @@ output "ecr" {
 
 output "nuon_dns" {
   value = {
-    enabled         = local.nuon_dns.enabled,
-    public_domain   = local.nuon_dns.enabled ? module.nuon_dns[0].public_domain : { zone_id : "", name : "", nameservers : tolist([""]) }
-    internal_domain = local.nuon_dns.enabled ? module.nuon_dns[0].internal_domain : { zone_id : "", name : "", nameservers : tolist([""]) }
+    enabled         = var.enable_public_route53_zone
+    public_domain   = var.enable_public_route53_zone ? {
+      nameservers = aws_route53_zone.public[0].name_servers
+      name        = aws_route53_zone.public[0].name
+      zone_id     = aws_route53_zone.public[0].id
+    } : {
+      zone_id     = ""
+      name        = ""
+      nameservers = tolist([""])
+    }
+    internal_domain = {
+      nameservers = aws_route53_zone.internal.name_servers
+      name        = aws_route53_zone.internal.name
+      zone_id     = aws_route53_zone.internal.id
+    }
   }
-  description = "A map of Nuon DNS attributes: whether nuon.run has been enabled; AWS Route 53 details for the public_domain and internal_domain."
+  description = "A map of Nuon DNS attributes: whether DNS has been enabled; AWS Route 53 details for the public_domain and internal_domain."
 }

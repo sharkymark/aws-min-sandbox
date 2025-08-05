@@ -8,14 +8,14 @@ resource "aws_route53_zone" "internal" {
 }
 
 resource "aws_route53_zone" "public" {
-  count = local.enable_public_route53_zone ? 1 : 0
+  count = local.enable_nuon_dns ? 1 : 0
 
   name          = var.public_root_domain
   force_destroy = true
 }
 
 resource "aws_route53_record" "caa" {
-  count = local.enable_public_route53_zone ? 1 : 0
+  count = local.enable_nuon_dns ? 1 : 0
 
   zone_id = aws_route53_zone.public[0].zone_id
   name    = var.public_root_domain
