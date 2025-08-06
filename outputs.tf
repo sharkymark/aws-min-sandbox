@@ -45,7 +45,7 @@ output "ecr" {
 
 output "nuon_dns" {
   value = {
-    enabled         = var.enable_nuon_dns
+    enabled         = local.nuon_dns.enabled,
     public_domain   = var.enable_nuon_dns ? {
       nameservers = aws_route53_zone.public[0].name_servers
       name        = aws_route53_zone.public[0].name
